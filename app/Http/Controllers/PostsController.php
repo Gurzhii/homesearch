@@ -14,11 +14,11 @@ class PostsController extends Controller
                 \DB::raw('user.name as username')
             ])
             ->join('user', 'post.user_id', '=', 'user.id')
-            ->where('posts.id', $id);
+            ->where('posts.id', $id)->get();
 
         $comments = \DB::table('comments')
             ->select('post_id', 'text')
-            ->where('comments.post_id', $id);
+            ->where('comments.post_id', $id)->get();
 
         $post->comments = $comments;
 
