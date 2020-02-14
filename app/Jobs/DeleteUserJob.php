@@ -2,11 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Mail\ProfileDeleted;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
 class DeleteUserJob implements ShouldQueue
 {
@@ -27,5 +29,6 @@ class DeleteUserJob implements ShouldQueue
     public function handle()
     {
         $this->user->deleteProfile();
+        Mail::to($this->user->email)->send(new ProfileDeleted($this->user));
     }
 }

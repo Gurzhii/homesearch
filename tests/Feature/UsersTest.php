@@ -3,8 +3,10 @@
 use App\Post;
 use App\User;
 use App\Comment;
-use App\Jobs\DeleteUserJob;
 use Tests\TestCase;
+use App\Jobs\DeleteUserJob;
+use App\Mail\ProfileDeleted;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ExampleTest extends TestCase
@@ -14,6 +16,8 @@ class ExampleTest extends TestCase
     /** @test */
     public function user_can_delete_his_profile()
     {
+
+
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
 
@@ -27,7 +31,17 @@ class ExampleTest extends TestCase
 
         $this->assertNull(Post::find(1));
         $this->assertNotNull(Post::find(2));
-
         $this->assertNull(Comment::find(1));
+    }
+
+    /** @test */
+    public function user_got_the_email_after_profile_deleted()
+    {
+        Mail::fake();
+
+        factory(User::class)->create();
+        $this->delete('/users/1');
+
+        Mail::assertSent(ProfileDeleted::class);
     }
 }
