@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('posts', PostsController::class);
+Route::resource('posts', PostsController::class)->only('show');
+Route::resource('users', UserController::class)->only('destroy');
