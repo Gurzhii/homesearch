@@ -9,6 +9,7 @@ class UserController extends Controller
 {
     public function destroy(User $user)
     {
+        $this->authorize('update', $user);
         try {
             $this->dispatchNow(new DeleteUserJob($user));
             return response()->json(['success' => true]);
