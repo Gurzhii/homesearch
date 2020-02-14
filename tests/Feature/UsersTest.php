@@ -47,7 +47,8 @@ class ExampleTest extends TestCase
     public function user_got_the_email_after_profile_deleted()
     {
         Mail::fake();
-
+        $user1 = factory(User::class)->create();
+        $this->actingAs($user1);
         factory(User::class)->create();
         $this->delete('/users/1');
 
