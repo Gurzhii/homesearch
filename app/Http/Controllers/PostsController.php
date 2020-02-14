@@ -11,9 +11,9 @@ class PostsController extends Controller
             ->select([
                 'posts.id',
                 'posts.title',
-                \DB::raw('user.name as username')
+                \DB::raw('users.name as username')
             ])
-            ->join('user', 'post.user_id', '=', 'user.id')
+            ->join('users', 'posts.user_id', '=', 'users.id')
             ->where('posts.id', $id)->get();
 
         $comments = \DB::table('comments')
