@@ -4,7 +4,6 @@ use App\Post;
 use App\User;
 use App\Comment;
 use Tests\TestCase;
-use App\Jobs\DeleteUserJob;
 use App\Mail\ProfileDeleted;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
