@@ -15,8 +15,6 @@ class ExampleTest extends TestCase
     /** @test */
     public function user_can_delete_his_profile()
     {
-
-
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
 
